@@ -1,6 +1,5 @@
-// chap3_2.js
-const fs = require('fs');                     // ← file‑system module
-const readline = require('readline');       // ← readline module for user input
+const fs = require('fs');                     // file‑system module
+const readline = require('readline');       // readline module for user input
 const rl = readline.createInterface({ input: process.stdin, output: process.stdout }); // ← readline interface
 
 const titles = [
