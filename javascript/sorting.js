@@ -174,29 +174,52 @@ function partition(left, right, pivotIndex) {
 
 
 function mergeSort() {
-    this.dataStore = executeMergeSort(this.dataStore);
+    this.executeMergeSort(0, this.dataStore.length - 1);
 }
 
-function executeMergeSort(list) {
-    if (list.length <= 1) return list;
+function executeMergeSort(left, right) {
+    if (left < right) {
+        var middle = Math.floor((left + right) / 2);
 
-    var middle = Math.floor(list.length / 2);
-    var left = list.slice(0, middle);
-    var right = list.slice(middle);
+        // Sort the left half
+        this.executeMergeSort(left, middle);
+        // Sort the right half
+        this.executeMergeSort(middle + 1, right);
 
-    return merge(executeMergeSort(left), executeMergeSort(right));
+        // Merge the two sorted halves
+        this.merge(left, middle, right);
+    }
 }
 
-function merge(left, right) {
-    var result = [];
-    while (left.length > 0 && right.length > 0) {
-        if (left[0] < right[0]) {
-            result.push(left.shift());
+function merge(left, middle, right) {
+    var temp = [];
+    var i = left;      // Starting index for left subarray
+    var j = middle + 1; // Starting index for right subarray
+    var k = 0;         // Starting index for temp array
+
+    // While there are elements in both subarrays
+    while (i <= middle && j <= right) {
+        if (this.dataStore[i] <= this.dataStore[j]) {
+            temp[k++] = this.dataStore[i++];
         } else {
-            result.push(right.shift());
+            temp[k++] = this.dataStore[j++];
         }
     }
-    return result.concat(left).concat(right);
+
+    // Copy remaining elements of left subarray, if any
+    while (i <= middle) {
+        temp[k++] = this.dataStore[i++];
+    }
+
+    // Copy remaining elements of right subarray, if any
+    while (j <= right) {
+        temp[k++] = this.dataStore[j++];
+    }
+
+    // Copy the merged elements back into the original dataStore
+    for (var m = 0; m < temp.length; m++) {
+        this.dataStore[left + m] = temp[m];
+    }
 }
 
 
