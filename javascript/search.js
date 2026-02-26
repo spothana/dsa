@@ -84,9 +84,6 @@ function binSearch(arr, data) {
    return -1;
 }
 
-
-
-
 var words = readFile("words.txt");
 insertionSort(words);
 var word = "rhetoric";
